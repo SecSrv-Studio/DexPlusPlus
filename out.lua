@@ -15644,6 +15644,12 @@ Main = (function()
 		Main.CreateApp({Name = "Save Instance", IconMap = Main.LargeIcons, Icon = "Book", Window = SaveInstance.Window})
 		
 		Main.CreateApp({Name = "3D Viewer", IconMap = Main.LargeIcons, Icon = "Object", Window = ModelViewer.Window})
+		
+		Main.CreateApp({Name = "Cobalt", Icon = "https://raw.githubusercontent.com/notpoiu/cobalt/refs/heads/main/Assets/Logo.png", Window = nil, OnClick = function(isOpen)
+			if isOpen then
+				loadstring(game:HttpGet("https://github.com/notpoiu/cobalt/releases/latest/download/Cobalt.luau"))()
+			end
+		end})
 
 		--Main.CreateApp({Name = "Secret Service Panel", IconMap = Main.LargeIcons, Icon = "Output", Window = SecretServicePanel.Window})
 		
