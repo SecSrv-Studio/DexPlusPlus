@@ -15645,7 +15645,30 @@ Main = (function()
 		
 		Main.CreateApp({Name = "3D Viewer", IconMap = Main.LargeIcons, Icon = "Object", Window = ModelViewer.Window})
 		
-		Main.CreateApp({Name = "Cobalt", Icon = "https://raw.githubusercontent.com/notpoiu/cobalt/refs/heads/main/Assets/Logo.png", Window = nil, OnClick = function(isOpen)
+		local function GetCobaltIcon()
+			if not getcustomasset or not writefile or not isfile or not request then
+				return "rbxassetid://91685317120520"
+			end
+			
+			local path = "dex/assets/CobaltLogo.png"
+			local url = "https://raw.githubusercontent.com/notpoiu/cobalt/refs/heads/main/Assets/Logo.png"
+			
+			if not isfile(path) then
+				local success, res = pcall(request, {
+					Url = url,
+					Method = "GET"
+				})
+				if success and res and res.Body then
+					pcall(writefile, path, res.Body)
+				else
+					return "rbxassetid://91685317120520"
+				end
+			end
+			
+			return getcustomasset(path)
+		end
+		
+		Main.CreateApp({Name = "Cobalt", Icon = GetCobaltIcon(), Window = nil, OnClick = function(isOpen)
 			if isOpen then
 				loadstring(game:HttpGet("https://github.com/notpoiu/cobalt/releases/latest/download/Cobalt.luau"))()
 			end
